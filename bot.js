@@ -8,11 +8,10 @@ import kidsHandler from './handlers/kids.js'
 import lecturesHandler from './handlers/lectures.js'
 import supportHandler from './handlers/support.js'
 import 'dotenv/config'
+
+
 import http from 'http';
-
-
 const PORT = process.env.PORT || 3000;
-
 http.createServer((req, res) => {
   res.writeHead(200, { "Content-Type": "text/plain" });
   res.end("Bot is running");
