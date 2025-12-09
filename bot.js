@@ -8,10 +8,12 @@ import kidsHandler from './handlers/kids.js'
 import lecturesHandler from './handlers/lectures.js'
 import supportHandler from './handlers/support.js'
 import 'dotenv/config'
+import http from "http";
 
 
 const PORT = process.env.PORT || 3000;
 const WEBHOOK_URL = process.env.RENDER_EXTERNAL_URL + "/webhook";
+
 
 const bot = new Telegraf(process.env.TELEGRAM_API)
 
@@ -228,16 +230,22 @@ bot.on("photo", async ctx => {
 
 //bot.launch({ dropPendingUpdates: true })
 
-await bot.telegram.setWebhook(WEBHOOK_URL);
-console.log("Webhook set to:", WEBHOOK_URL);
-
-http.createServer((req, res) => {
-  if (req.url === "/webhook" && req.method === "POST") {
-    bot.webhookCallback("/webhook")(req, res);
-  } else {
-    res.writeHead(200, { "Content-Type": "text/plain" });
-    res.end("Bot is running");
+async function start() {
+    await bot.telegram.setWebhook(WEBHOOK_URL);
+    console.log("Webhook set to:", WEBHOOK_URL);
+  
+    http
+      .createServer((req, res) => {
+        if (req.url === "/webhook" && req.method === "POST") {
+          bot.webhookCallback("/webhook")(req, res);
+        } else {
+          res.writeHead(200, { "Content-Type": "text/plain" });
+          res.end("Bot is running");
+        }
+      })
+      .listen(PORT, () => {
+        console.log(`Server running on port ${PORT}`);
+      });
   }
-}).listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+  
+  start();
