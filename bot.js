@@ -222,4 +222,15 @@ bot.on("photo", async ctx => {
     "📱 Будь ласка, натисніть кнопку *«Надіслати контакт»*, щоб завершити створення заявки.")
 })
 
-bot.launch()
+bot.launch({ dropPendingUpdates: true })
+
+import http from 'http';
+
+const PORT = process.env.PORT || 3000;
+
+http.createServer((req, res) => {
+  res.writeHead(200, { "Content-Type": "text/plain" });
+  res.end("Bot is running");
+}).listen(PORT, () => {
+  console.log(`Render keep-alive server running on port ${PORT}`);
+});
