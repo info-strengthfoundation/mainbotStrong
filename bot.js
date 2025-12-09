@@ -10,6 +10,16 @@ import supportHandler from './handlers/support.js'
 import 'dotenv/config'
 import http from 'http';
 
+
+const PORT = process.env.PORT || 3000;
+
+http.createServer((req, res) => {
+  res.writeHead(200, { "Content-Type": "text/plain" });
+  res.end("Bot is running");
+}).listen(PORT, () => {
+  console.log(`Render keep-alive server running on port ${PORT}`);
+});
+
 const bot = new Telegraf(process.env.TELEGRAM_API)
 
 // стан користувача
@@ -224,13 +234,3 @@ bot.on("photo", async ctx => {
 })
 
 bot.launch({ dropPendingUpdates: true })
-
-
-const PORT = process.env.PORT || 3000;
-
-http.createServer((req, res) => {
-  res.writeHead(200, { "Content-Type": "text/plain" });
-  res.end("Bot is running");
-}).listen(PORT, () => {
-  console.log(`Render keep-alive server running on port ${PORT}`);
-});
