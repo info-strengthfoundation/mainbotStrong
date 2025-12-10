@@ -233,19 +233,26 @@ bot.on("photo", async ctx => {
 async function start() {
     await bot.telegram.setWebhook(WEBHOOK_URL);
     console.log("Webhook set to:", WEBHOOK_URL);
-  
-    http
-      .createServer((req, res) => {
+
+    http.createServer((req, res) => {
+        // 1️⃣ webhook для Telegram
         if (req.url === "/webhook" && req.method === "POST") {
-          bot.webhookCallback("/webhook")(req, res);
-        } else {
-          res.writeHead(200, { "Content-Type": "text/plain" });
-          res.end("Bot is running");
+            bot.webhookCallback("/webhook")(req, res);
+            return; // <--- ОБОВ'ЯЗКОВО!
         }
-      })
-      .listen(PORT, () => {
+
+        // 2️⃣ ping для Make/UptimeRobot
+        if (req.url === "/ping" && req.method === "GET") {
+            res.writeHead(200, { "Content-Type": "text/plain" });
+            res.end("OK");
+            return;
+        }
+
+        // 3️⃣ стандартна відповідь
+        res.writeHead(200, { "Content-Type": "text/plain" });
+        res.end("Bot is running");
+    }).listen(PORT, () => {
         console.log(`Server running on port ${PORT}`);
-      });
-  }
-  
+    });
+}
   start();
