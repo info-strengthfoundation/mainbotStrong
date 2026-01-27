@@ -7,6 +7,7 @@ import iventsHandler from './handlers/ivents.js'
 import kidsHandler from './handlers/kids.js'
 import lecturesHandler from './handlers/lectures.js'
 import supportHandler from './handlers/support.js'
+import tohetherHandler from './handlers/together.js'
 import 'dotenv/config'
 import http from "http";
 
@@ -42,6 +43,7 @@ iventsHandler(bot, mainMenu, userState)
 kidsHandler(bot, mainMenu, userState)
 lecturesHandler(bot, mainMenu, userState)
 supportHandler(bot, mainMenu, userState)
+tohetherHandler(bot, mainMenu);
 
 // ОБРОБКА КОНТАКТУ
 bot.on("contact", async ctx => {
