@@ -43,7 +43,7 @@ iventsHandler(bot, mainMenu, userState)
 kidsHandler(bot, mainMenu, userState)
 lecturesHandler(bot, mainMenu, userState)
 supportHandler(bot, mainMenu, userState)
-tohetherHandler(bot, mainMenu);
+tohetherHandler(bot, mainMenu, userState);
 
 // ОБРОБКА КОНТАКТУ
 bot.on("contact", async ctx => {

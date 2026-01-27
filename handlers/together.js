@@ -1,9 +1,10 @@
 import { Markup } from "telegraf";
 
-export default function (bot, mainMenu) {
+export default function (bot, mainMenu, userState) {
 
     // Головна кнопка "Разом Далі"
     bot.hears("💚 Разом Далі", ctx => {
+        userState[ctx.from.id] = { type: "together" };
         ctx.reply(
             "💚 Проєкт «Разом Далі»\n\n" +
             "Проєкт «Разом Далі» — це простір психологічної підтримки для родин, які пережили втрату, " +
