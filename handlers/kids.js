@@ -102,7 +102,7 @@ export default function (bot, mainMenu, userState) {
     }
 
     // Головне меню Kids
-    bot.hears("🎮 Об'єднані Силою - Заходи для дітей", async ctx => {
+    bot.hears("🎠 Заходи для дітей", async ctx => {
         userState[ctx.from.id] = { type: "kids", mode: null };
 
         await ctx.reply(
